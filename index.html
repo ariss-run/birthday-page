@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday, Love!</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: pink;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        
+        h1 {
+            color: #e63946;
+            margin-top: 20px;
+        }
+        
+        button {
+            background-color: pink;
+            border: 2px solid #e63946;
+            border-radius: 10px;
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            margin: 10px;
+        }
+        
+        .gallery {
+            display: none;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            padding: 20px;
+        }
+        
+        .gallery img {
+            width: 150px;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+        
+        #messageBox {
+            display: none;
+            background: #ffe6f0;
+            border: 2px solid #e63946;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px auto;
+            width: 80%;
+            font-size: 18px;
+            color: #333;
+        }
+        
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>🎉 Happy Birthday, My Love! 🎉</h1>
+
+    <!-- Birthday Song -->
+    <audio autoplay loop>
+    <source src="birthdaysong.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+    <!-- Buttons -->
+    <button id="pictureBtn">❤️ Our Picture</button>
+    <button id="messageBtn">📦 Show My Message</button>
+
+    <!-- Gallery -->
+    <div class="gallery" id="gallery">
+        <img src="pic1.png" alt="Us together but AI haha">
+        <img src="pic2.jpg" alt="Unexpected Picture">
+        <img src="pic3.jpg" alt="Takas Nights">
+    </div>
+
+    <!-- Message Box -->
+    <div id="messageBox">
+        Every moment with you is a treasure. Thank you for filling my life with love, laughter, and happiness. I’m so grateful for you—today and always. ❤️
+    </div>
+
+    <!-- Falling Hearts -->
+    <canvas id="hearts"></canvas>
+
+    <script>
+        // Button actions
+        document.getElementById('pictureBtn').addEventListener('click', () => {
+            document.getElementById('gallery').style.display = 'flex';
+        });
+
+        document.getElementById('messageBtn').addEventListener('click', () => {
+            document.getElementById('messageBox').style.display = 'block';
+        });
+
+        // Falling hearts animation
+        const canvas = document.getElementById('hearts');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const hearts = Array.from({
+            length: 50
+        }, () => ({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            size: Math.random() * 20 + 10,
+            speed: Math.random() * 2 + 1,
+            color: 'red'
+        }));
+
+        function drawHearts() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            hearts.forEach(h => {
+                ctx.font = `${h.size}px Arial`;
+                ctx.fillStyle = h.color;
+                ctx.fillText('❤', h.x, h.y);
+            });
+            updateHearts();
+        }
+
+        function updateHearts() {
+            hearts.forEach(h => {
+                h.y += h.speed;
+                if (h.y > canvas.height) {
+                    h.y = -10;
+                    h.x = Math.random() * canvas.width;
+                }
+            });
+        }
+
+        setInterval(drawHearts, 30);
+    </script>
+</body>
+
+</html>
